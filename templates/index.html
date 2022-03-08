@@ -3,11 +3,25 @@
 {% block content %}
 
 <h1>books</h1>
+<div>
+    <h2>sort by: </h2>
+    <div>
+    <button type="submit">title</button>
+    <button type="submit">oldest addition</button>
+    <button type="submit">most recent addition</button>
+    </div>
+    <h2>categorize by: </h2>
+    <button type="submit">javascript</button>
+    <button type="submit">python</button>
+    <button type="submit">django</button>
+    <button type="submit">lua</button>
+    <button type="submit">command line</button>
+    <button type="submit">selenium</button>
+</div>
 
 <div>
     {% for book in books %}
-        <h2><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a></h2>
-        <h3>{{ book.author }}</h3>
+        <h2><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a> by {{ book.author }}</h2>
     {% endfor %}
 </div>
 

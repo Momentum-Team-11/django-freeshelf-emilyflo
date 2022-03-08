@@ -1,5 +1,35 @@
-{% block content %}
+{% load static %}
 
-
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <link rel="stylesheet" href="style.css">
+<title>Freeshelf</title>
+</head>
+<header>
+    <a href={% url 'index'%}>
+    <h1><center>Freeshelf</center></h1>
+    </a>
+    <nav></nav>
+        <div>
+            <center>
+            {% if user.is_authenticated %}
+                <a href={% url 'auth_logout' %}>logout</a> 
+            {% else %}
+                <a href={% url 'registration_register' %}>register</a>
+                <a href={% url 'auth_login' %}>login</a> 
+            {% endif %}
+            </center>
+        </div>
+    </nav>
+</header>
+<body class="sans-serif pv3 ph2">
+  <div class="mw9 center">
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>

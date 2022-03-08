@@ -3,8 +3,13 @@ from .models import Book
 from .forms import BookForm
 
 # Create your views here.
+def home(request):
+    if request.user.is_authenticated:
+        return redirect("index")
+    return render(request, "home.html")
+
 def index(request):
-    books = Book.objects.all()
+    books = Book.objects.order_by('title')
     return render(request, "index.html", {"books": books})
 
 def book_detail(request, pk):
@@ -39,3 +44,9 @@ def delete_book(request, pk):
         book.delete()
         return redirect(to='index')
     return render(request, "delete_book.html", {"book": book, "pk": pk})
+
+def title(request):
+    books = Book.objects.all().order_by('title')
+    sort_by_title = Book.objects.order_by('title')
+    context = {'books': sort_by_title}
+    return render(request, 'index.html', context)
