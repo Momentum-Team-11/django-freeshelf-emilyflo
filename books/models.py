@@ -15,7 +15,7 @@ class Book(models.Model):
     imageUrl = models.ImageField(blank=True)
     description = models.TextField(max_length=1000, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    # favorite = models.ManyToManyField(User, related_name = "favorite_books")
+    favorited_by = models.ManyToManyField(User, related_name = "favorite_books")
     category = models.ManyToManyField("Category", related_name="books")
 
     def __str__(self):
@@ -23,6 +23,9 @@ class Book(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, null=True, blank=True, unique=True)
+
+    class Meta:
+        verbose_name_plural = "categories"
     
     def __str__(self):
         return self.name

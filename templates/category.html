@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>
-{{ category.name }}
+{{ category.name }}  | <a href="{% url 'index' %}">book index</a>
 </h1>
 
 {% for book in books %}

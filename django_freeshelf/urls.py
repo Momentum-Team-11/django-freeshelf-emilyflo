@@ -27,5 +27,6 @@ urlpatterns = [
     path('newest', books_views.newest, name='newest'),
     path('oldest', books_views.oldest, name='oldest'),
     path('category/<slug:slug>', books_views.category, name="category"),
-    # path("books/<int:pk>/favorite", books_views.add_favorite, name="add_favorite"),
+    path("books/<int:book_pk>/add_favorite", books_views.add_favorite, name="add_favorite"),
+    path("books/<int:book_pk>/delete_favorite",books_views.delete_favorite, name="delete_favorite"),
             ]

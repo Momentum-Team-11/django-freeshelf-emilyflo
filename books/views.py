@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book, Category
 from .forms import BookForm
+from .view_helpers import book_is_favorited
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -8,11 +10,13 @@ def home(request):
         return redirect("index")
     return render(request, "home.html")
 
+@login_required
 def index(request):
     books = Book.objects.all()
-    categorys = Category.objects.all()
-    return render(request, "index.html", {"books": books, "categorys": categorys})
+    categories = Category.objects.all()
+    return render(request, "index.html", {"books": books, "categories": categories})
 
+@login_required
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
     favorited = book_is_favorited(book, request.user)
@@ -49,29 +53,38 @@ def delete_book(request, pk):
 
 def title(request):
     title = Book.objects.order_by('title')
-    context = {'books': title}
+    categories = Category.objects.all()
+    context = {'books': title, 'categories': categories}
     return render(request, 'index.html', context)
 
+@login_required
 def oldest(request):
     oldest = Book.objects.order_by('created_at')
-    context = {'books': oldest}
+    categories = Category.objects.all()
+    context = {'books': oldest, 'categories': categories}
     return render(request, 'index.html', context)
 
+@login_required
 def newest(request):
     newest = Book.objects.order_by('-created_at')
-    context = {'books': newest}
+    categories = Category.objects.all()
+    context = {'books': newest, 'categories': categories}
     return render(request, 'index.html', context)
 
-def book_is_favorited(book, user):
-    return user.favorite_books.filter(pk=book.pk)
+@login_required
+def add_favorite(request, book_pk):
+    book = get_object_or_404(Book, pk=book_pk)
+    user = request.user
+    user.favorite_books.add(book)
+    return redirect("book_detail", pk=book.pk)
 
-# def add_favorite(request, book):
-#     book = get_object_or_404(Book, pk=book.pk)
-#     user = request.user
-#     user.favorite_books.add(book)
-#     favorited = book_is_favorited(book, request.user)
-#     return redirect("book_detail", pk = book.pk)
+@login_required
+def delete_favorite(request, book_pk):
+    book = get_object_or_404(Book, pk=book_pk)
+    request.user.favorite_books.remove(book)
+    return redirect("book_detail", pk=book.pk)
 
+@login_required
 def category(request, slug):
     category = get_object_or_404(Category, slug=slug)
     books = category.books.all()

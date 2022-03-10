@@ -10,5 +10,6 @@ class BookForm(forms.ModelForm):
             'author',
             'description',
             'URL',
+            'favorited_by',
             'category'
         ]
