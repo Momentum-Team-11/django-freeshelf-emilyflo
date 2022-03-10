@@ -23,4 +23,10 @@ urlpatterns = [
     path('book/<int:pk>/', books_views.book_detail, name='book_detail'),
     path('', books_views.home, name='home'),
     path('auth/', include('registration.backends.simple.urls')),
+    path('title', books_views.title, name='title'),
+    path('newest', books_views.newest, name='newest'),
+    path('oldest', books_views.oldest, name='oldest'),
+    path('category/<slug:slug>', books_views.category, name="category"),
+    # path("books/<int:pk>/favorite", books_views.add_favorite, name="add_favorite"),
+    # path('category/<int:pk>', books_views.category), name="category")
             ]

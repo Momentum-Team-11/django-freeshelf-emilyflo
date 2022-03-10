@@ -6,17 +6,16 @@
 <div>
     <h2>sort by: </h2>
     <div>
-    <button type="submit">title</button>
-    <button type="submit">oldest addition</button>
-    <button type="submit">most recent addition</button>
+    <a href="{% url 'title' %}"><button type="submit">title</button></a>
+    <a href="{% url 'oldest' %}"><button type="submit">oldest addition</button></a>
+    <a href="{% url 'newest' %}"><button type="submit">most recent addition</button></a>
     </div>
     <h2>categorize by: </h2>
-    <button type="submit">javascript</button>
-    <button type="submit">python</button>
-    <button type="submit">django</button>
-    <button type="submit">lua</button>
-    <button type="submit">command line</button>
-    <button type="submit">selenium</button>
+    {% for category in categorys %}
+
+    <a href="{% url 'category' slug=category.slug %}"><button type="submit">{{ category.name }}</button></a>
+
+    {% endfor %}
 </div>
 
 <div>

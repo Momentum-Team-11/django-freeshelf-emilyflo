@@ -6,14 +6,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-  <link rel="stylesheet" href="style.css">
 <title>Freeshelf</title>
 </head>
 <header>
-    <a href={% url 'index'%}>
+    <a href={% url 'index' %}>
     <h1><center>Freeshelf</center></h1>
     </a>
-    <nav></nav>
+    <nav>
         <div>
             <center>
             {% if user.is_authenticated %}
@@ -26,8 +25,8 @@
         </div>
     </nav>
 </header>
-<body class="sans-serif pv3 ph2">
-  <div class="mw9 center">
+<body>
+  <div>
     {% block content %}
     {% endblock %}
   </div>

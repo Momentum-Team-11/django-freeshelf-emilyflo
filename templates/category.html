@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+{{ category.name }}
+</h1>
+{% for book in books %}
+    {% if book in category %}
+
+        <p>{{ book.title }}</p>
+
+    {% endif %}
+{% endfor %}
+{% endblock %}
