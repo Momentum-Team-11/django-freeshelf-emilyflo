@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>books</h1>
+<div>
+    <h2>sort by: </h2>
+    <div>
+    <a href="{% url 'title' %}"><button type="submit">title</button></a>
+    <a href="{% url 'oldest' %}"><button type="submit">oldest addition</button></a>
+    <a href="{% url 'newest' %}"><button type="submit">most recent addition</button></a>
+    </div>
+    <h2>categorize by: </h2>
+    {% for category in categories %}
+
+    <a href="{% url 'category' slug=category.slug %}"><button type="submit">{{ category.name }}</button></a>
+
+    {% endfor %}
+</div>
+
+<div>
+    {% for book in books %}
+        <h2><a href="{% url 'book_detail' pk=book.pk %}">{{ book.title }}</a> by {{ book.author }}</h2>
+    {% endfor %}
+</div>
+
+{% endblock %}

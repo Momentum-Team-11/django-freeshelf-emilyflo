@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+{{ category.name }}  | <a href="{% url 'index' %}">book index</a>
+</h1>
+
+{% for book in books %}
+
+        <h2>{{ book.title }}</h2>
+        <h3>{{ book.author }}</h3>
+        <h4>{{ book.description }}</h4>
+
+{% endfor %}
+{% endblock %}
